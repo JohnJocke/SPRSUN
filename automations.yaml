@@ -69,12 +69,18 @@
           slave: 1
           hub: Sprsun PC
           value: '{{ trigger.to_state.state[0] | int(0)  }}'
+
 - id: sprsun_pc_wybieramy_tryb_pracy_p06_unit_mode_36
-  alias: Wybór trybu pracy PC
+  alias: Selecting the unit operating mode
   trigger:
-    platform: state
+  - platform: state
     entity_id: input_select.sprsun_pc_tryb_pracy_p06_unit_mode_36
     id: select
+    to:
+    
+  - platform: state
+    entity_id: sensor.p06_unit_mode
+    id: input
     to:
   condition: []
   action:
@@ -85,11 +91,11 @@
       sequence:
       - variables:
           values:
-            '0': 0 CWU
-            '1': 1 Ogrzewanie
-            '2': 2 Chłodzenie
-            '3': 3 Ogrzewanie i CWU
-            '4': 4 Chłodzenie i CWU
+            '0': 0 DHW
+            '1': 1 Heating
+            '2': 2 Cooling
+            '3': 3 Heating and DHW
+            '4': 4 Cooling and DHW
       - service: input_select.select_option
         target:
           entity_id: input_select.sprsun_pc_tryb_pracy_p06_unit_mode_36
@@ -103,7 +109,7 @@
         data_template:
           address: 54
           slave: 1
-          hub: Sprsun PC
+          hub: SPRSUN
           value: '{{ trigger.to_state.state[0] | int(0)  }}'
 - id: sprsun_pc_nastawiony_czas_po_g03_start_internal_185
   alias: Nastawa przerw w załączaniu pompy obiegowej
@@ -149,4 +155,3 @@
         | float) | multiply(1) | int) }}'        
         
         
-
