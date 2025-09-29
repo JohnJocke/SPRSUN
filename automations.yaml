@@ -79,7 +79,7 @@
     to:
     
   - platform: state
-    entity_id: sensor.p06_unit_mode
+    entity_id: sensor.spr_p06_unit_mode
     id: input
     to:
   condition: []
