@@ -1,45 +1,13 @@
-sensor:
-
-  - platform: time_date
-    display_options:
-      - 'date_time'
-      - 'time'
-      - 'date'
-      
-  - platform: history_stats
-    name: Compressor operating time 
-    entity_id: binary_sensor.sprsun_pc_compressor
-    state: "on"
-    type: time
-    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-    end: "{{ now() }}"
-    
-  - platform: history_stats
-    name: Number of compressor starts 
-    entity_id: binary_sensor.sprsun_pc_compressor
-    state: "on"
-    type: count
-    start: "{{ now().replace(hour=0, minute=0, second=0) }}"
-    end: "{{ now() }}"   
-    
-  - platform: filter
-    name: Average COP
-    entity_id: sensor.cop_do_sredniej
-    filters:
-      - filter: time_simple_moving_average
-        window_size: "24:00"
-        precision: 2
-        
 modbus:
   - name: "SPRSUN"
     delay: 5
     timeout: 5
     type: tcp
-    host: 192.168.0.7
+    host: 192.168.0.6
     port: 502
     
     climates:
-      - name: P01 Heating setp
+      - name: SPRSUN P01 Heating setp
         slave: 1
         address: 0x00CC
         input_type: holding
@@ -54,7 +22,7 @@ modbus:
         temperature_unit: °C
         scan_interval: 60
 
-      - name: P02 Cooling setp
+      - name: SPRSUN P02 Cooling setp
         slave: 1
         address: 0x00CB
         input_type: holding
@@ -69,7 +37,7 @@ modbus:
         temperature_unit: °C
         scan_interval: 60
 
-      - name: P04 Hotwater setp
+      - name: SPRSUN P04 Hotwater setp
         slave: 1
         address: 0x00CA
         input_type: holding
@@ -84,7 +52,7 @@ modbus:
         temperature_unit: °C
         scan_interval: 60
 
-      - name: P03 Temp.diff
+      - name: SPRSUN P03 Temp.diff
         slave: 1
         address: 0x00C6
         input_type: holding
@@ -99,7 +67,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C
         
-      - name: "F39 AC constant temp diff"
+      - name: "SPRSUN F39 AC constant temp diff"
         slave: 1
         address: 0x00C7
         input_type: holding
@@ -114,7 +82,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C
         
-      - name: P05 Temp.diff
+      - name: SPRSUN P05 Temp.diff
         slave: 1
         address: 0x00C8
         input_type: holding
@@ -129,7 +97,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C
         
-      - name: "F40 WT constant temp diff"
+      - name: "SPRSUN F40 WT constant temp diff"
         slave: 1
         address: 0x00C9
         input_type: holding
@@ -144,7 +112,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C
 
-      - name: "F44 WT temp calibration"
+      - name: "SPRSUN F44 WT temp calibration"
         slave: 1
         address: 0x00CD
         input_type: holding
@@ -159,7 +127,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: "°C"       
 
-      - name: "F45 Inlet temp calibration"
+      - name: "SPRSUN F45 Inlet temp calibration"
         slave: 1
         address: 0x00CE
         input_type: holding
@@ -174,7 +142,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "F46 Outlet temp calibration"
+      - name: "SPRSUN F46 Outlet temp calibration"
         slave: 1
         address: 0x00CF
         input_type: holding
@@ -189,7 +157,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "F49 WT temp offset stp."
+      - name: "SPRSUN F49 WT temp offset stp."
         slave: 1
         address: 0x00D0
         input_type: holding
@@ -204,7 +172,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "F50 Inlet temp offset stp."
+      - name: "SPRSUN F50 Inlet temp offset stp."
         slave: 1
         address: 0x00D1
         input_type: holding
@@ -219,7 +187,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "F42 Water temp offset"
+      - name: "SPRSUN F42 Water temp offset"
         slave: 1
         address: 0x00D2
         input_type: holding
@@ -234,7 +202,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "F43 Inlet temp offset"
+      - name: "SPRSUN F43 Inlet temp offset"
         slave: 1
         address: 0x00D3
         input_type: holding
@@ -249,7 +217,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H03 Defrost in stp."
+      - name: "SPRSUN H03 Defrost in stp."
         slave: 1
         address: 0x00D4
         input_type: holding
@@ -264,7 +232,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H04 Defrost exit stp."
+      - name: "SPRSUN H04 Defrost exit stp."
         slave: 1
         address: 0x00D5
         input_type: holding
@@ -279,7 +247,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H07 Def ambi coil 1"
+      - name: "SPRSUN H07 Def ambi coil 1"
         slave: 1
         address: 0x00D6
         input_type: holding
@@ -294,7 +262,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H10 Def ambi coil 2"
+      - name: "SPRSUN H10 Def ambi coil 2"
         slave: 1
         address: 0x00D7
         input_type: holding
@@ -309,7 +277,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H13 Def ambi coil 3"
+      - name: "SPRSUN H13 Def ambi coil 3"
         slave: 1
         address: 0x00D8
         input_type: holding
@@ -324,7 +292,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H09 Defrost ambi stp.1"
+      - name: "SPRSUN H09 Defrost ambi stp.1"
         slave: 1
         address: 0x00D9
         input_type: holding
@@ -339,7 +307,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H12 Defrost ambi stp.2"
+      - name: "SPRSUN H12 Defrost ambi stp.2"
         slave: 1
         address: 0x00DA
         input_type: holding
@@ -354,7 +322,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "H04 Defrost ambi stp"
+      - name: "SPRSUN H04 Defrost ambi stp"
         slave: 1
         address: 0x00DB
         input_type: holding
@@ -369,7 +337,7 @@ modbus:
         scan_interval: 60 
         temperature_unit: °C        
 
-      - name: "G04 Delta temp.set"
+      - name: "SPRSUN G04 Delta temp.set"
         slave: 1
         address: 0x018D
         input_type: holding
@@ -385,7 +353,7 @@ modbus:
         temperature_unit: °C
 
     sensors:
-      - name: "Working time 0"
+      - name: "SPRSUN Working time 0"
         slave: 1
         address: 0x0000
         input_type: holding
@@ -395,7 +363,7 @@ modbus:
         precision: 2
         unit_of_measurement: "min"
         
-      - name: "Invalid 1"
+      - name: "SPRSUN Invalid 1"
         slave: 1
         address: 0x0001
         input_type: holding
@@ -405,14 +373,14 @@ modbus:
         precision: 2
         unit_of_measurement: "min"
 
-      - name: "Switching input symbol"
+      - name: "SPRSUN Switching input symbol"
         slave: 1
         address: 0x0002
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Working status mark"
+      - name: "SPRSUN Working status mark"
         # Working status mark
         slave: 1
         address: 0x0003
@@ -420,77 +388,77 @@ modbus:
         data_type: int16
         scan_interval: 10
 
-      - name: "Output symbol 1"
+      - name: "SPRSUN Output symbol 1"
         slave: 1
         address: 0x0004
         input_type: holding
         data_type: int16       
         scan_interval: 60
 
-      - name: "Output symbol 2"
+      - name: "SPRSUN Output symbol 2"
         slave: 1
         address: 0x0005
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Output symbol 3"
+      - name: "SPRSUN Output symbol 3"
         slave: 1
         address: 0x0006
         input_type: holding
         data_type: int16     
         scan_interval: 60
 
-      - name: "Failure symbol 1"
+      - name: "SPRSUN Failure symbol 1"
         slave: 1
         address: 0x0007
         input_type: holding
         data_type: int16        
         scan_interval: 60
 
-      - name: "Failure symbol 2"
+      - name: "SPRSUN Failure symbol 2"
         slave: 1
         address: 0x0008
         input_type: holding
         data_type: int16     
         scan_interval: 60
 
-      - name: "Failure symbol 3"
+      - name: "SPRSUN Failure symbol 3"
         slave: 1
         address: 0x0009
         input_type: holding
         data_type: int16      
         scan_interval: 60
 
-      - name: "Failure symbol 4"
+      - name: "SPRSUN Failure symbol 4"
         slave: 1
         address: 0x000A
         input_type: holding
         data_type: int16       
         scan_interval: 60
 
-      - name: "Failure symbol 5"
+      - name: "SPRSUN Failure symbol 5"
         slave: 1
         address: 0x000B
         input_type: holding
         data_type: int16       
         scan_interval: 60
 
-      - name: "Failure symbol 6"
+      - name: "SPRSUN Failure symbol 6"
         slave: 1
         address: 0x000C
         input_type: holding
         data_type: int16      
         scan_interval: 60
 
-      - name: "Failure symbol 7"
+      - name: "SPRSUN Failure symbol 7"
         slave: 1
         address: 0x000D
         input_type: holding
         data_type: int16        
         scan_interval: 60
        
-      - name: Inlet temp.
+      - name: SPRSUN Inlet temp.
         slave: 1
         address: 0x000E
         input_type: holding
@@ -500,7 +468,7 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: Hotwater temp.
+      - name: SPRSUN Hotwater temp.
         slave: 1
         address: 0x000F
         input_type: holding
@@ -510,14 +478,14 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: "Invalid 10"
+      - name: "SPRSUN Invalid 10"
         slave: 1
         address: 0x0010
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: Ambi temp.
+      - name: SPRSUN Ambi temp.
         slave: 1
         address: 0x0011
         input_type: holding
@@ -527,7 +495,7 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: Outlet temp.
+      - name: SPRSUN Outlet temp.
         slave: 1
         address: 0x0012
         input_type: holding
@@ -537,21 +505,21 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: "Invalid 13"
+      - name: "SPRSUN Invalid 13"
         slave: 1
         address: 0x0013
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 14"
+      - name: "SPRSUN Invalid 14"
         slave: 1
         address: 0x0014
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: Suct gas temp.
+      - name: SPRSUN Suct gas temp.
         slave: 1
         address: 0x0015
         input_type: holding
@@ -561,7 +529,7 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: Coil temp.
+      - name: SPRSUN Coil temp.
         slave: 1
         address: 0x0016
         input_type: holding
@@ -571,35 +539,35 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: "Invalid 17"
+      - name: "SPRSUN Invalid 17"
         slave: 1
         address: 0x0017
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 18"
+      - name: "SPRSUN Invalid 18"
         slave: 1
         address: 0x0018
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 19"
+      - name: "SPRSUN Invalid 19"
         slave: 1
         address: 0x0019
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 1A"
+      - name: "SPRSUN Invalid 1A"
         slave: 1
         address: 0x001A
         input_type: holding
         data_type: int16
         scan_interval: 180
        
-      - name: "Exhaust temp."
+      - name: "SPRSUN Exhaust temp."
         slave: 1
         address: 0x001B
         input_type: holding
@@ -608,21 +576,21 @@ modbus:
         scale: 1
         unit_of_measurement: "°C"
         
-      - name: "zawór EEV1 step."
+      - name: "SPRSUN zawór EEV1 step."
         slave: 1
         address: 0x001C
         input_type: holding
         data_type: int16
         scan_interval: 30
         
-      - name: "zawór EEV2 step."
+      - name: "SPRSUN zawór EEV2 step."
         slave: 1
         address: 0x001D
         input_type: holding
         data_type: int16
         scan_interval: 30
 
-      - name: Comp.frequency
+      - name: SPRSUN Comp.frequency
         slave: 1
         address: 0x001E
         input_type: holding
@@ -632,21 +600,21 @@ modbus:
         precision: 1
         unit_of_measurement: "Hz"
 
-      - name: "Frequency conversion failure 1"
+      - name: "SPRSUN Frequency conversion failure 1"
         slave: 1
         address: 0x001F
         input_type: holding
         data_type: int16
         scan_interval: 30
 
-      - name: "Frequency conversion failure 2"
+      - name: "SPRSUN Frequency conversion failure 2"
         slave: 1
         address: 0x0020
         input_type: holding
         data_type: int16
         scan_interval: 30
 
-      - name: DC bus voltage
+      - name: SPRSUN DC bus voltage
         slave: 1
         address: 0x0021
         input_type: holding
@@ -656,7 +624,7 @@ modbus:
         precision: 1
         unit_of_measurement: "V"
 
-      - name: Driving temp.
+      - name: SPRSUN Driving temp.
         slave: 1
         address: 0x0022
         input_type: holding
@@ -666,7 +634,7 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
         
-      - name: Comp.current
+      - name: SPRSUN Comp.current
         slave: 1
         address: 0x0023
         input_type: holding
@@ -676,7 +644,7 @@ modbus:
         precision: 1
         unit_of_measurement: "A"
 
-      - name: Target frequency
+      - name: SPRSUN Target frequency
         slave: 1
         address: 0x0024
         input_type: holding
@@ -686,7 +654,7 @@ modbus:
         precision: 1
         unit_of_measurement: "Hz"
         
-      - name: DC fan 1 speed
+      - name: SPRSUN DC fan 1 speed
         slave: 1
         address: 0x0026
         input_type: holding
@@ -694,7 +662,7 @@ modbus:
         scan_interval: 30
         unit_of_measurement: "rpm"
 
-      - name: DC fan 2 speed
+      - name: SPRSUN DC fan 2 speed
         slave: 1
         address: 0x0027
         input_type: holding
@@ -702,7 +670,7 @@ modbus:
         scan_interval: 30
         unit_of_measurement: "rpm"
 
-      - name: Evap.temp.
+      - name: SPRSUN Evap.temp.
         slave: 1
         address: 0x0028
         input_type: holding
@@ -712,7 +680,7 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
 
-      - name: Cond.temp.
+      - name: SPRSUN Cond.temp.
         slave: 1
         address: 0x0029
         input_type: holding
@@ -722,35 +690,35 @@ modbus:
         precision: 1
         unit_of_measurement: "°C"
         
-      - name: "Frequency conversion fault 8 bits higher 0xFF"
+      - name: "SPRSUN Frequency conversion fault 8 bits higher 0xFF"
         slave: 1
         address: 0x002A
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Frequency conversion fault 8 bits lower 0xFF"
+      - name: "SPRSUN Frequency conversion fault 8 bits lower 0xFF"
         slave: 1
         address: 0x002B
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Controller Version"
+      - name: "SPRSUN Controller Version"
         slave: 1
         address: 0x002C
         input_type: holding
         data_type: int16
         scan_interval: 300
 
-      - name: "Display Version"
+      - name: "SPRSUN Display Version"
         slave: 1
         address: 0x002D
         input_type: holding
         data_type: int16
         scan_interval: 300
  
-      - name: DC pump speed
+      - name: SPRSUN DC pump speed
         slave: 1
         address: 0x002E
         input_type: holding
@@ -760,7 +728,7 @@ modbus:
         precision: 1
         unit_of_measurement: "%"
 
-      - name: Suct.press
+      - name: SPRSUN Suct.press
         slave: 1
         address: 0x002F
         input_type: holding
@@ -770,7 +738,7 @@ modbus:
         precision: 1
         unit_of_measurement: "bar"
 
-      - name: Disch.press
+      - name: SPRSUN Disch.press
         slave: 1
         address: 0x0030
         input_type: holding
@@ -780,7 +748,7 @@ modbus:
         precision: 1
         unit_of_measurement: "bar"
 
-      - name: "DC fan target"
+      - name: "SPRSUN DC fan target"
         slave: 1
         address: 0x0031
         input_type: holding
@@ -788,42 +756,42 @@ modbus:
         scan_interval: 60
         unit_of_measurement: "Hz"
 
-      - name: "Parameter marker definition"
+      - name: "SPRSUN Parameter marker definition"
         slave: 1
         address: 0x0032
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Control mark 1"
+      - name: "SPRSUN Control mark 1"
         slave: 1
         address: 0x0033
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Control mark 2"
+      - name: "SPRSUN Control mark 2"
         slave: 1
         address: 0x0034
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "Timeband"
+      - name: "SPRSUN Timeband"
         slave: 1
         address: 0x0035
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "P06 Unit mode"
+      - name: "SPRSUN P06 Unit mode"
         slave: 1
         address: 0x0036
         input_type: holding
         data_type: int16
         scan_interval: 30 
 
-      - name: "H01 Defrost freq"
+      - name: "SPRSUN H01 Defrost freq"
         slave: 1
         address: 0x0037
         input_type: holding
@@ -831,7 +799,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"
 
-      - name: "H08 Defrost period 1"
+      - name: "SPRSUN H08 Defrost period 1"
         slave: 1
         address: 0x0038
         input_type: holding
@@ -839,7 +807,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
     
-      - name: "H11 Defrost period 2"
+      - name: "SPRSUN H11 Defrost period 2"
         slave: 1
         address: 0x0039
         input_type: holding
@@ -847,7 +815,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
      
-      - name: "H14 Defrost period 3"
+      - name: "SPRSUN H14 Defrost period 3"
         slave: 1
         address: 0x003A
         input_type: holding
@@ -855,7 +823,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
  
-      - name: "H15 Comp total run"
+      - name: "SPRSUN H15 Comp total run"
         slave: 1
         address: 0x003B
         input_type: holding
@@ -865,7 +833,7 @@ modbus:
         scale: 5
 
  
-      - name: "H16 Comp continuous run"
+      - name: "SPRSUN H16 Comp continuous run"
         slave: 1
         address: 0x003C
         input_type: holding
@@ -873,7 +841,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
  
-      - name: "H05 Defrost time"
+      - name: "SPRSUN H05 Defrost time"
         slave: 1
         address: 0x003D
         input_type: holding
@@ -881,7 +849,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
  
-      - name: "A01 MV preiod"
+      - name: "SPRSUN A01 MV preiod"
         slave: 1
         address: 0x003E
         input_type: holding
@@ -889,7 +857,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "s"
 
-      - name: "A14 MV heat initial 0"
+      - name: "SPRSUN A14 MV heat initial 0"
         slave: 1
         address: 0x003F
         input_type: holding
@@ -897,7 +865,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A15 MV heat initial 1"
+      - name: "SPRSUN A15 MV heat initial 1"
         slave: 1
         address: 0x0040
         input_type: holding
@@ -905,7 +873,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A16 MV heat initial 2"
+      - name: "SPRSUN A16 MV heat initial 2"
         slave: 1
         address: 0x0041
         input_type: holding
@@ -913,7 +881,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A17 MV heat initial 3"
+      - name: "SPRSUN A17 MV heat initial 3"
         slave: 1
         address: 0x0042
         input_type: holding
@@ -921,7 +889,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A18 MV heat initial 4"
+      - name: "SPRSUN A18 MV heat initial 4"
         slave: 1
         address: 0x0043
         input_type: holding
@@ -929,7 +897,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A19 MV heat initial 5"
+      - name: "SPRSUN A19 MV heat initial 5"
         slave: 1
         address: 0x0044
         input_type: holding
@@ -937,7 +905,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A20 MV heat initial 6"
+      - name: "SPRSUN A20 MV heat initial 6"
         slave: 1
         address: 0x0045
         input_type: holding
@@ -945,7 +913,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A21 MV heat initial 7"
+      - name: "SPRSUN A21 MV heat initial 7"
         slave: 1
         address: 0x0046
         input_type: holding
@@ -953,7 +921,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A22 MV cool initial 0"
+      - name: "SPRSUN A22 MV cool initial 0"
         slave: 1
         address: 0x0047
         input_type: holding
@@ -961,7 +929,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A23 MV cool initial 1"
+      - name: "SPRSUN A23 MV cool initial 1"
         slave: 1
         address: 0x0048
         input_type: holding
@@ -969,7 +937,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A24 MV cool initial 2"
+      - name: "SPRSUN A24 MV cool initial 2"
         slave: 1
         address: 0x0049
         input_type: holding
@@ -977,7 +945,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A25 MV cool initial 3"
+      - name: "SPRSUN A25 MV cool initial 3"
         slave: 1
         address: 0x004A
         input_type: holding
@@ -985,7 +953,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A26 MV water initial 0"
+      - name: "SPRSUN A26 MV water initial 0"
         slave: 1
         address: 0x004B
         input_type: holding
@@ -993,7 +961,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A27 MV water initial 1"
+      - name: "SPRSUN A27 MV water initial 1"
         slave: 1
         address: 0x004C
         input_type: holding
@@ -1001,7 +969,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A28 MV water initial 2"
+      - name: "SPRSUN A28 MV water initial 2"
         slave: 1
         address: 0x004D
         input_type: holding
@@ -1009,7 +977,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A29 MV water initial 3"
+      - name: "SPRSUN A29 MV water initial 3"
         slave: 1
         address: 0x004E
         input_type: holding
@@ -1017,7 +985,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A30 MV water initial 4"
+      - name: "SPRSUN A30 MV water initial 4"
         slave: 1
         address: 0x004F
         input_type: holding
@@ -1025,7 +993,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A31 MV water initial 5"
+      - name: "SPRSUN A31 MV water initial 5"
         slave: 1
         address: 0x0050
         input_type: holding
@@ -1033,7 +1001,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A32 MV water initial 6"
+      - name: "SPRSUN A32 MV water initial 6"
         slave: 1
         address: 0x0051
         input_type: holding
@@ -1041,7 +1009,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A33 MV water initial 7"
+      - name: "SPRSUN A33 MV water initial 7"
         slave: 1
         address: 0x0052
         input_type: holding
@@ -1049,7 +1017,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 0"
+      - name: "SPRSUN A34 MV heat lower 0"
         slave: 1
         address: 0x0053
         input_type: holding
@@ -1057,7 +1025,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 1"
+      - name: "SPRSUN A34 MV heat lower 1"
         slave: 1
         address: 0x0054
         input_type: holding
@@ -1065,7 +1033,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 2"
+      - name: "SPRSUN A34 MV heat lower 2"
         slave: 1
         address: 0x0055
         input_type: holding
@@ -1073,7 +1041,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 3"
+      - name: "SPRSUN A34 MV heat lower 3"
         slave: 1
         address: 0x0056
         input_type: holding
@@ -1081,7 +1049,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 4"
+      - name: "SPRSUN A34 MV heat lower 4"
         slave: 1
         address: 0x0057
         input_type: holding
@@ -1089,7 +1057,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 5"
+      - name: "SPRSUN A34 MV heat lower 5"
         slave: 1
         address: 0x0058
         input_type: holding
@@ -1097,7 +1065,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 6"
+      - name: "SPRSUN A34 MV heat lower 6"
         slave: 1
         address: 0x0059
         input_type: holding
@@ -1105,7 +1073,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A34 MV heat lower 7"
+      - name: "SPRSUN A34 MV heat lower 7"
         slave: 1
         address: 0x005A
         input_type: holding
@@ -1113,7 +1081,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A43 MV defrost open"
+      - name: "SPRSUN A43 MV defrost open"
         slave: 1
         address: 0x005B
         input_type: holding
@@ -1121,7 +1089,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A44 MV water lower"
+      - name: "SPRSUN A44 MV water lower"
         slave: 1
         address: 0x005C
         input_type: holding
@@ -1129,7 +1097,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A46 MV manual open"
+      - name: "SPRSUN A46 MV manual open"
         slave: 1
         address: 0x005D
         input_type: holding
@@ -1137,21 +1105,21 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "A47 MV SH ratio"
+      - name: "SPRSUN A47 MV SH ratio"
         slave: 1
         address: 0x005E
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "A48 MV SH diff."
+      - name: "SPRSUN A48 MV SH diff."
         slave: 1
         address: 0x005F
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "A50 MV comp.keep time"
+      - name: "SPRSUN A50 MV comp.keep time"
         slave: 1
         address: 0x0060
         input_type: holding
@@ -1160,7 +1128,7 @@ modbus:
         scale: 2
         unit_of_measurement: "s"
 
-      - name: "A51 MV def.keep time"
+      - name: "SPRSUN A51 MV def.keep time"
         slave: 1
         address: 0x0061
         input_type: holding
@@ -1169,7 +1137,7 @@ modbus:
         scale: 2
         unit_of_measurement: "s"
 
-      - name: "B02 AV manual open"
+      - name: "SPRSUN B02 AV manual open"
         slave: 1
         address: 0x0062
         input_type: holding
@@ -1177,35 +1145,35 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B04 AV exhaust ratio"
+      - name: "SPRSUN B04 AV exhaust ratio"
         slave: 1
         address: 0x0063
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "B05 AV exhaust diff."
+      - name: "SPRSUN B05 AV exhaust diff."
         slave: 1
         address: 0x0064
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "B06 AV SH ratio"
+      - name: "SPRSUN B06 AV SH ratio"
         slave: 1
         address: 0x0065
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "B07 AV SH diff."
+      - name: "SPRSUN B07 AV SH diff."
         slave: 1
         address: 0x0066
         input_type: holding
         data_type: int16
         scan_interval: 60
 
-      - name: "B08 AV period"
+      - name: "SPRSUN B08 AV period"
         slave: 1
         address: 0x0067
         input_type: holding
@@ -1213,7 +1181,7 @@ modbus:
         scan_interval: 60
         unit_of_measurement: "s"
 
-      - name: "B19 AV heat initial 0"
+      - name: "SPRSUN B19 AV heat initial 0"
         slave: 1
         address: 0x0068
         input_type: holding
@@ -1221,7 +1189,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B20 AV heat initial 1"
+      - name: "SPRSUN B20 AV heat initial 1"
         slave: 1
         address: 0x0069
         input_type: holding
@@ -1229,49 +1197,49 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "Invalid 6A"
+      - name: "SPRSUN Invalid 6A"
         slave: 1
         address: 0x006A
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 6B"
+      - name: "SPRSUN Invalid 6B"
         slave: 1
         address: 0x006B
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 6C"
+      - name: "SPRSUN Invalid 6C"
         slave: 1
         address: 0x006C
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 6D"
+      - name: "SPRSUN Invalid 6D"
         slave: 1
         address: 0x006D
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 6E"
+      - name: "SPRSUN Invalid 6E"
         slave: 1
         address: 0x006E
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 6F"
+      - name: "SPRSUN Invalid 6F"
         slave: 1
         address: 0x006F
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "B27 AV water initial 0"
+      - name: "SPRSUN B27 AV water initial 0"
         slave: 1
         address: 0x0070
         input_type: holding
@@ -1279,7 +1247,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B28 AV water initial 1"
+      - name: "SPRSUN B28 AV water initial 1"
         slave: 1
         address: 0x0071
         input_type: holding
@@ -1287,49 +1255,49 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "Invalid 72"
+      - name: "SPRSUN Invalid 72"
         slave: 1
         address: 0x0072
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 73"
+      - name: "SPRSUN Invalid 73"
         slave: 1
         address: 0x0073
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 74"
+      - name: "SPRSUN Invalid 74"
         slave: 1
         address: 0x0074
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 75"
+      - name: "SPRSUN Invalid 75"
         slave: 1
         address: 0x0075
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 76"
+      - name: "SPRSUN Invalid 76"
         slave: 1
         address: 0x0076
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 77"
+      - name: "SPRSUN Invalid 77"
         slave: 1
         address: 0x0077
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "B35 AV heat lower 0"
+      - name: "SPRSUN B35 AV heat lower 0"
         slave: 1
         address: 0x0078
         input_type: holding
@@ -1337,7 +1305,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B36 AV heat lower 1"
+      - name: "SPRSUN B36 AV heat lower 1"
         slave: 1
         address: 0x0079
         input_type: holding
@@ -1345,7 +1313,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B37 AV heat lower 2"
+      - name: "SPRSUN B37 AV heat lower 2"
         slave: 1
         address: 0x007A
         input_type: holding
@@ -1353,7 +1321,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B38 AV heat lower 3"
+      - name: "SPRSUN B38 AV heat lower 3"
         slave: 1
         address: 0x007B
         input_type: holding
@@ -1361,7 +1329,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B39 AV heat lower 4"
+      - name: "SPRSUN B39 AV heat lower 4"
         slave: 1
         address: 0x007C
         input_type: holding
@@ -1369,7 +1337,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B40 AV heat lower 5"
+      - name: "SPRSUN B40 AV heat lower 5"
         slave: 1
         address: 0x007D
         input_type: holding
@@ -1377,7 +1345,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B41 AV heat lower 6"
+      - name: "SPRSUN B41 AV heat lower 6"
         slave: 1
         address: 0x007E
         input_type: holding
@@ -1385,7 +1353,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B42 AV heat lower 7"
+      - name: "SPRSUN B42 AV heat lower 7"
         slave: 1
         address: 0x007F
         input_type: holding
@@ -1393,7 +1361,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B43 AV defrost open"
+      - name: "SPRSUN B43 AV defrost open"
         slave: 1
         address: 0x0080
         input_type: holding
@@ -1401,7 +1369,7 @@ modbus:
         scan_interval: 60
         scale: 2
 
-      - name: "B44 AV cool open"
+      - name: "SPRSUN B44 AV cool open"
         slave: 1
         address: 0x0081
         input_type: holding
@@ -1410,7 +1378,7 @@ modbus:
         scale: 2
 
 ######################################
-      - name: "B91 AV water exh diff 7"
+      - name: "SPRSUN B91 AV water exh diff 7"
         slave: 1
         address: 0x00C5
         input_type: holding
@@ -1453,7 +1421,7 @@ modbus:
 # CA, CB, CC są na początku-climate    
 # do DB                          
 ######################################
-      - name: "Manual frequency setting 0x00FB"
+      - name: "SPRSUN Manual frequency setting 0x00FB"
         slave: 1
         address: 0x00FB
         input_type: holding
@@ -1461,7 +1429,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"
         
-      - name: "Freq of water R00 T>14 0x00FC"
+      - name: "SPRSUN Freq of water R00 T>14 0x00FC"
         slave: 1
         address: 0x00FC
         input_type: holding
@@ -1469,7 +1437,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"
         
-      - name: "Freq of water R011 T=(9,14) 0x00FD"
+      - name: "SPRSUN Freq of water R011 T=(9,14) 0x00FD"
         slave: 1
         address: 0x00FD
         input_type: holding
@@ -1477,7 +1445,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"
         
-      - name: "Freq of heat T>14 R04 0x0104"
+      - name: "SPRSUN Freq of heat T>14 R04 0x0104"
         slave: 1
         address: 0x0104
         input_type: holding
@@ -1485,7 +1453,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "Hz"       
         
-      - name: "Freq of heat T=(9,14) R05 0x0105"
+      - name: "SPRSUN Freq of heat T=(9,14) R05 0x0105"
         slave: 1
         address: 0x0105
         input_type: holding
@@ -1495,63 +1463,63 @@ modbus:
 
 #####################################
 
-      - name: "Invalid 118"
+      - name: "SPRSUN Invalid 118"
         slave: 1
         address: 0x0118
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 125"
+      - name: "SPRSUN Invalid 125"
         slave: 1
         address: 0x0125
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 126"
+      - name: "SPRSUN Invalid 126"
         slave: 1
         address: 0x0126
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 127"
+      - name: "SPRSUN Invalid 127"
         slave: 1
         address: 0x0127
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 128"
+      - name: "SPRSUN Invalid 128"
         slave: 1
         address: 0x0128
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 129"
+      - name: "SPRSUN Invalid 129"
         slave: 1
         address: 0x0129
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 12A"
+      - name: "SPRSUN Invalid 12A"
         slave: 1
         address: 0x012A
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 12B"
+      - name: "SPRSUN Invalid 12B"
         slave: 1
         address: 0x012B
         input_type: holding
         data_type: int16
         scan_interval: 180
 
-      - name: "Invalid 12C"
+      - name: "SPRSUN Invalid 12C"
         slave: 1
         address: 0x012C
         input_type: holding
@@ -1559,7 +1527,7 @@ modbus:
         scan_interval: 180
 
 #########
-      - name: "G08 Comp.delay"
+      - name: "SPRSUN G08 Comp.delay"
         slave: 1
         address: 0x0181
         input_type: holding
@@ -1567,7 +1535,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
 
-      - name: "G06 Comp.delay"
+      - name: "SPRSUN G06 Comp.delay"
         slave: 1
         address: 0x0182
         input_type: holding
@@ -1575,7 +1543,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
 
-      - name: "G07 Hotwater heater Ext."
+      - name: "SPRSUN G07 Hotwater heater Ext."
         slave: 1
         address: 0x0183
         input_type: holding
@@ -1583,7 +1551,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "°C"
 
-      - name: "G05 heating heater Ext."
+      - name: "SPRSUN G05 heating heater Ext."
         slave: 1
         address: 0x0184
         input_type: holding
@@ -1591,7 +1559,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "°C"
   
-      - name: "G03 Start internal"
+      - name: "SPRSUN G03 Start internal"
         slave: 1
         address: 0x0185
         input_type: holding
@@ -1599,14 +1567,14 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "min"
 
-      - name: "F13 DC pump mode 0 manual/1 auto"
+      - name: "SPRSUN F13 DC pump mode 0 manual/1 auto"
         slave: 1
         address: 0x0186
         input_type: holding
         data_type: int16
         scan_interval: 60 
 
-      - name: "F14 DC pump cycle"
+      - name: "SPRSUN F14 DC pump cycle"
         slave: 1
         address: 0x0187
         input_type: holding
@@ -1614,7 +1582,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "s"
 
-      - name: "F15 DC pump freq set"
+      - name: "SPRSUN F15 DC pump freq set"
         slave: 1
         address: 0x0188
         input_type: holding
@@ -1622,7 +1590,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "%"
 
-      - name: "F16 DC pump max freq"
+      - name: "SPRSUN F16 DC pump max freq"
         slave: 1
         address: 0x0189
         input_type: holding
@@ -1630,7 +1598,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "%"
 
-      - name: "F17 DC pump min freq"
+      - name: "SPRSUN F17 DC pump min freq"
         slave: 1
         address: 0x018A
         input_type: holding
@@ -1638,14 +1606,14 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "%"
 
-      - name: "F18 DC pump scale factor"
+      - name: "SPRSUN F18 DC pump scale factor"
         slave: 1
         address: 0x018B
         input_type: holding
         data_type: int16
         scan_interval: 30 
 
-      - name: "F19 DC pump diff."
+      - name: "SPRSUN F19 DC pump diff."
         slave: 1
         address: 0x018C
         input_type: holding
@@ -1660,35 +1628,35 @@ modbus:
     #     scan_interval: 30 
     #     unit_of_measurement: "°C"
  
-      - name: "F21 Comp freq scale factor"
+      - name: "SPRSUN F21 Comp freq scale factor"
         slave: 1
         address: 0x018E
         input_type: holding
         data_type: int16
         scan_interval: 30 
       
-      - name: "F22 Comp freq diff"
+      - name: "SPRSUN F22 Comp freq diff"
         slave: 1
         address: 0x018F
         input_type: holding
         data_type: int16
         scan_interval: 30 
   
-      - name: "tryb pracy kompresora"
+      - name: "SPRSUN tryb pracy kompresora"
         slave: 1
         address: 0x0190
         input_type: holding
         data_type: int16
         scan_interval: 30
  
-      - name: "G09 Enable switch NO linkage YES amb"
+      - name: "SPRSUN G09 Enable switch NO linkage YES amb"
         slave: 1
         address: 0x0191
         input_type: holding
         data_type: int16
         scan_interval: 60 
  
-      - name: "G10 Ambtemp switch setp."
+      - name: "SPRSUN G10 Ambtemp switch setp."
         slave: 1
         address: 0x0192
         input_type: holding
@@ -1696,7 +1664,7 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "°C"
  
-      - name: "G11 Ambtemp diff."
+      - name: "SPRSUN G11 Ambtemp diff."
         slave: 1
         address: 0x0193
         input_type: holding
@@ -1704,7 +1672,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F27 Limit freq temp diff"
+      - name: "SPRSUN F27 Limit freq temp diff"
         slave: 1
         address: 0x0194
         input_type: holding
@@ -1712,7 +1680,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F28 Dec.freq temp diff"
+      - name: "SPRSUN F28 Dec.freq temp diff"
         slave: 1
         address: 0x0195
         input_type: holding
@@ -1720,7 +1688,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F29 Limit freq outlet low"
+      - name: "SPRSUN F29 Limit freq outlet low"
         slave: 1
         address: 0x0196
         input_type: holding
@@ -1728,7 +1696,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F30 Dec.freq outlet low"
+      - name: "SPRSUN F30 Dec.freq outlet low"
         slave: 1
         address: 0x0197
         input_type: holding
@@ -1736,7 +1704,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
  
-      - name: "F31 Limit freq outlet high"
+      - name: "SPRSUN F31 Limit freq outlet high"
         slave: 1
         address: 0x0198
         input_type: holding
@@ -1744,7 +1712,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F32 Dec freq outlet high"
+      - name: "SPRSUN F32 Dec freq outlet high"
         slave: 1
         address: 0x0199
         input_type: holding
@@ -1752,7 +1720,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "Temp.set point of antilegionella"
+      - name: "SPRSUN Temp.set point of antilegionella"
         slave: 1
         address: 0x019A
         input_type: holding
@@ -1760,14 +1728,14 @@ modbus:
         scan_interval: 60 
         unit_of_measurement: "°C"
 
-      - name: "G02 Pump work 0-Interval 1-Normal 2-Demand"
+      - name: "SPRSUN G02 Pump work 0-Interval 1-Normal 2-Demand"
         slave: 1
         address: 0x019E
         input_type: holding
         data_type: int16
         scan_interval: 30
  
-      - name: "F35 Antifreeze cycle"
+      - name: "SPRSUN F35 Antifreeze cycle"
         slave: 1
         address: 0x019F
         input_type: holding
@@ -1775,7 +1743,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "min"
  
-      - name: "F36 Three-way valve cycle"
+      - name: "SPRSUN F36 Three-way valve cycle"
         slave: 1
         address: 0x01A0
         input_type: holding
@@ -1783,7 +1751,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "hour"
  
-      - name: "F37 Pump cycle in error"
+      - name: "SPRSUN F37 Pump cycle in error"
         slave: 1
         address: 0x01A1
         input_type: holding
@@ -1791,7 +1759,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "min"
  
-      - name: "F38 Comp freq cycle"
+      - name: "SPRSUN F38 Comp freq cycle"
         slave: 1
         address: 0x01A2
         input_type: holding
@@ -1799,7 +1767,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "s"
  
-      - name: "F41 Air too low stp."
+      - name: "SPRSUN F41 Air too low stp."
         slave: 1
         address: 0x01A3
         input_type: holding
@@ -1807,7 +1775,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
  
-      - name: "Hotwater Set temp of Timeband 1"
+      - name: "SPRSUN Hotwater Set temp of Timeband 1"
         slave: 1
         address: 0x01A4
         input_type: holding
@@ -1816,7 +1784,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
 
-      - name: "heat Set temp of Timeband 1"
+      - name: "SPRSUN heat Set temp of Timeband 1"
         slave: 1
         address: 0x01A5
         input_type: holding
@@ -1825,7 +1793,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "cool Set temp of Timeband 1"
+      - name: "SPRSUN cool Set temp of Timeband 1"
         slave: 1
         address: 0x01A6
         input_type: holding
@@ -1834,7 +1802,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "Hotwater Set temp of Timeband 2"
+      - name: "SPRSUN Hotwater Set temp of Timeband 2"
         slave: 1
         address: 0x01A7
         input_type: holding
@@ -1843,7 +1811,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "heat Set temp of Timeband 2"
+      - name: "SPRSUN heat Set temp of Timeband 2"
         slave: 1
         address: 0x01A8
         input_type: holding
@@ -1852,7 +1820,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "cool Set temp of Timeband 2"
+      - name: "SPRSUN cool Set temp of Timeband 2"
         slave: 1
         address: 0x01A9
         input_type: holding
@@ -1861,7 +1829,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "Hotwater Set temp of Timeband 3"
+      - name: "SPRSUN Hotwater Set temp of Timeband 3"
         slave: 1
         address: 0x01AA
         input_type: holding
@@ -1870,7 +1838,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "heat Set temp of Timeband 3"
+      - name: "SPRSUN heat Set temp of Timeband 3"
         slave: 1
         address: 0x01AB
         input_type: holding
@@ -1879,7 +1847,7 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
  
-      - name: "cool Set temp of Timeband 3"
+      - name: "SPRSUN cool Set temp of Timeband 3"
         slave: 1
         address: 0x01AC
         input_type: holding
@@ -1888,28 +1856,28 @@ modbus:
         unit_of_measurement: "°C"
         scale: 0.5
 
-      - name: "Week set of Timeband 1"
+      - name: "SPRSUN Week set of Timeband 1"
         slave: 1
         address: 0x01AD
         input_type: holding
         data_type: int16
         scan_interval: 300 
 
-      - name: "Week set of Timeband 2"
+      - name: "SPRSUN Week set of Timeband 2"
         slave: 1
         address: 0x01AE
         input_type: holding
         data_type: int16
         scan_interval: 300 
 
-      - name: "Week set of Timeband 3"
+      - name: "SPRSUN Week set of Timeband 3"
         slave: 1
         address: 0x01AF
         input_type: holding
         data_type: int16
         scan_interval: 300 
  
-      - name: "H17 Def fan high press"
+      - name: "SPRSUN H17 Def fan high press"
         slave: 1
         address: 0x01B0
         input_type: holding
@@ -1917,7 +1885,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "bar"
  
-      - name: "H18 Def fan speed"
+      - name: "SPRSUN H18 Def fan speed"
         slave: 1
         address: 0x01B1
         input_type: holding
@@ -1926,21 +1894,21 @@ modbus:
         scale: 10
         unit_of_measurement: "Hz"
  
-      - name: "F47 High press adjust"
+      - name: "SPRSUN F47 High press adjust"
         slave: 1
         address: 0x01B2
         input_type: holding
         data_type: int16
         scan_interval: 30 
  
-      - name: "F48 Low press adjust"
+      - name: "SPRSUN F48 Low press adjust"
         slave: 1
         address: 0x01B3
         input_type: holding
         data_type: int16
         scan_interval: 30 
  
-      - name: "F51 Air too low diff"
+      - name: "SPRSUN F51 Air too low diff"
         slave: 1
         address: 0x01B4
         input_type: holding
@@ -1948,7 +1916,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
  
-      - name: "B93 AV init outlet stp"
+      - name: "SPRSUN B93 AV init outlet stp"
         slave: 1
         address: 0x01B5
         input_type: holding
@@ -1956,7 +1924,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F53 Outlet temp offset stp"
+      - name: "SPRSUN F53 Outlet temp offset stp"
         slave: 1
         address: 0x01B6
         input_type: holding
@@ -1964,7 +1932,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F52 Outlet temp offset"
+      - name: "SPRSUN F52 Outlet temp offset"
         slave: 1
         address: 0x01B7
         input_type: holding
@@ -1972,7 +1940,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F54 Heat upper limit stp"
+      - name: "SPRSUN F54 Heat upper limit stp"
         slave: 1
         address: 0x01B8
         input_type: holding
@@ -1980,7 +1948,7 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
   
-      - name: "F55 Cool lower limit stp"
+      - name: "SPRSUN F55 Cool lower limit stp"
         slave: 1
         address: 0x01B9
         input_type: holding
@@ -1988,14 +1956,14 @@ modbus:
         scan_interval: 30 
         unit_of_measurement: "°C"
 
-      - name: "F56 Model selection2-A202508-CGK-025V3L-B 9.5 kW 380V"
+      - name: "SPRSUN F56 Model selection2-A202508-CGK-025V3L-B 9.5 kW 380V"
         slave: 1
         address: 0x01BA
         input_type: holding
         data_type: int16
         scan_interval: 300 
 
-      - name: "R94 Oil return freq."
+      - name: "SPRSUN R94 Oil return freq."
         slave: 1
         address: 0x01BB
         input_type: holding
@@ -2006,26 +1974,26 @@ modbus:
 
 input_number:
   sprsun_pc_nastawiony_czas_po_g03_start_internal_185:
-    name: Nastawiony czas przerw pracy pompy obiegowej
+    name: SPRSUN Set break time for the circulation pump
     min: 1
     max: 120
     step: 5
     
   sprsun_pc_nastawiona_freq_of_water_r00:
-    name: Nastawiona czestotliwosc grzania cwu dla T>14
+    name: SPRSUN Set DHW heating frequency for T>14
     min: 30
     max: 60
     step: 1 
     
   sprsun_pc_nastawiona_freq_of_heat_r04:
-    name: Nastawiona czestotliwosc ogrzewania dla T>14
+    name: SPRSUN Set heating frequency for T>14
     min: 30
     max: 60
     step: 1 
     
 input_select:
   sprsun_pc_tryb_pracy_p06_unit_mode_36:
-    name: P06 Unit mode
+    name: SPRSUN P06 Unit mode
     options:
       - 0 DHW
       - 1 Heating
@@ -2034,7 +2002,7 @@ input_select:
       - 4 Cooling and DHW
 
   sprsun_pc_tryb_pracy_kompresora_190:
-    name: Wybór trybu pracy kompresora
+    name: SPRSUN Selecting the compressor operating mode
     options:
       - 0 Normal
       - 1 ECO
@@ -2042,7 +2010,7 @@ input_select:
       - 3 Test
 
   sprsun_pc_g02_pump_work_0_interval_1_normal_2_demand_19e:
-    name: Wybór trybu pracy pompy obiegowej
+    name: SPRSUN Selecting the circulation pump operating mode
     options:
       - 0 Interval
       - 1 Normal
@@ -2082,216 +2050,140 @@ switch:
             data:
               entity_id: sensor.parameter_marker_definition
 
-template:
-  - sensor:
-    - name: "Data godzina dzień"
-      state: "{{now().timestamp() | timestamp_custom('%Y-%m-%d %H:%m:%s %A') }}"
-      icon: "mdi:calendar-clock"
-        
-    - name: "Moc pobierana przez PC"
-      unit_of_measurement: "W"
-      state: >
-        {% set p1= states('sensor.faza_l1_moc_czynna_pc') | float(0) %}
-        {% set p2 = states('sensor.faza_l2_moc_czynna_pc') | float(0) %}
-        {% set p3 = states('sensor.faza_l3_moc_czynna_pc') | float(0) %}
-          {{ ((p1 + p2 + p3)) | round(0) }}
-
-    - name: "Sprsun COP"
-      unit_of_measurement: ''
-# temperatura zasilania - temperatura powrotu)x(przepływ na godzinę)x(ciepło właściwe wody)/3.6 i wynik jest w kW    
-      state: >-
-        {% set tz = (states('sensor.sprsun_pc_temperatura_zasilania_outlet_temp') | float(1) - 2 ) %}
-        {% set tp = states('sensor.sprsun_pc_temperatura_powrotu_inlet_temp') | float(1) %}
-        {% set mp = (states('sensor.moc_pobierana_przez_pc') | float(1) + 1 ) %}
-        {% set pw = states('sensor.sprsun_pc_predkosc_wentylatora_1_dc_fan_1_speed') | float(1) %}
-        {% set png = 800 %}   
-        {% set cw = 4200 %}   
-        {% set wsp = 3600000 %} 
-        {% set pwm = ((states('sensor.sprsun_pc_pompka_pwm_dc_pump_speed') | float(1))/1) %}
-        {% set ck = states('sensor.sprsun_pc_czestotliwosc_kompresora_comp_frequency') | float(1) %}
-        {% set copt = ( ((tz-tp)*(png*pwm*cw*10)) / (wsp * mp) ) | float(1) %}
-        
-        {% if ( copt  > 1 and copt < 11  and ck > 20 and pw > 200 ) %}        
-          {{ ( ((tz-tp)*(png*pwm*cw*10)) / (wsp * mp) ) | round(2) }}
-        {% else %}
-          {{ (0) }}
-        {% endif %} 
-    - name: COP do średniej
-      state: >-
-        {% set cop =  states('sensor.sprsun_cop') | float(0) %}
-        
-        {% if ( cop  > 1 ) %}        
-          {{ states('sensor.sprsun_cop') | float(0) }}
-        {% else %}
-          {{ states('sensor.cop_do_sredniej') | float(0) }}
-        {% endif %}     
-
   - binary_sensor:
 # working_status_mark
-    - name: Hotwater demand
+    - name: SPRSUN Hotwater demand
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(1) > 0 }}"
       icon: mdi:water-boiler-alert
-    - name: Heating demand
+    - name: SPRSUN Heating demand
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(2) > 0 }}"
       icon: mdi:water-boiler
-    - name: With or without heating
+    - name: SPRSUN With or without heating
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(4) > 0 }}"
       icon: mdi:water-boiler-alert
-    - name: With or without cooling
+    - name: SPRSUN With or without cooling
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(8) > 0 }}"
       icon: mdi:timer-off
-    - name: Antilegionella on
+    - name: SPRSUN Antilegionella on
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(16) > 0 }}"
       icon: mdi:account-cancel
-    - name: Cooling demand
+    - name: SPRSUN Cooling demand
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(32) > 0 }}"
       icon: mdi:connection
-    - name: Alarm downtime
+    - name: SPRSUN Alarm downtime
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(64) > 0 }}"
       icon: mdi:water-boiler-off
-    - name: Defrost
+    - name: SPRSUN Defrost
       state: "{{ states('sensor.working_status_mark')| int(default=0) |int|bitwise_and(128) > 0 }}"
       icon: mdi:hand-front-right
       
 # parameter_marker_definition
-    - name: 0-OFF，1-ON
+    - name: SPRSUN 0-OFF，1-ON
       state: "{{ states('sensor.parameter_marker_definition')| int(default=0) |int|bitwise_and(1) > 0 }}"
-    - name: MV mode：0-Auto，1- manu
+    - name: SPRSUN MV mode：0-Auto，1- manu
       state: "{{ states('sensor.parameter_marker_definition')| int(default=0) |int|bitwise_and(2) > 0 }}"
-    - name: Manual frequency selection
+    - name: SPRSUN Manual frequency selection
       state: "{{ states('sensor.parameter_marker_definition')| int(default=0) |int|bitwise_and(4) > 0 }}"
-    - name: AV MODE：0-Auto，1- manu
+    - name: SPRSUN AV MODE：0-Auto，1- manu
       state: "{{ states('sensor.parameter_marker_definition')| int(default=0) |int|bitwise_and(32) > 0 }}"
-    - name: AV init outlet stp. 
+    - name: SPRSUN AV init outlet stp. 
       state: "{{ states('sensor.parameter_marker_definition')| int(default=0) |int|bitwise_and(64) > 0 }}"
 # switching_input_symbol
-    - name: A/C Linkage switch
+    - name: SPRSUN A/C Linkage switch
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(1) > 0 }}"
-    - name: Linkage switch
+    - name: SPRSUN Linkage switch
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(2) > 0 }}"
-    - name: Heating linkage
+    - name: SPRSUN Heating linkage
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(4) > 0 }}"
-    - name: Cooling linkage
+    - name: SPRSUN Cooling linkage
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(8) > 0 }}"
-    - name: Flow Switch
+    - name: SPRSUN Flow Switch
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(16) > 0 }}"
-    - name: High pressure switch
+    - name: SPRSUN High pressure switch
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(32) > 0 }}"
-    - name: Phase sequence detection
+    - name: SPRSUN Phase sequence detection
       state: "{{ states('sensor.switching_input_symbol')|int|bitwise_and(64) > 0 }}"
     
 # sprsun_pc_output_symbol_1
-    - name: Compressor
+    - name: SPRSUN Compressor
       state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(1) > 0 }}"
-    - name: Fan
+    - name: SPRSUN Fan
       state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(32) > 0 }}"
-    - name: 4-way valve
+    - name: SPRSUN 4-way valve
       state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(64) > 0 }}"
-    - name: High or low fan speed:0-low 1-high
+    - name: SPRSUN High or low fan speed:0-low 1-high
       state: "{{ states('sensor.sprsun_pc_output_symbol_1')|int|bitwise_and(128) > 0 }}"
 # sprsun_pc_output_symbol_2
-    - name: Chassis heater
+    - name: SPRSUN Chassis heater
       state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(1) > 0 }}"
-    - name: Heating heater
+    - name: SPRSUN Heating heater
       state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(32) > 0 }}"
-    - name: Three-way valve
+    - name: SPRSUN Three-way valve
       state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(64) > 0 }}"
-    - name: Hotwater heater
+    - name: SPRSUN Hotwater heater
       state: "{{ states('sensor.sprsun_pc_output_symbol_2')|int|bitwise_and(128) > 0 }}"
 # sprsun_pc_output_symbol_3
-    - name: A/C PUMP
+    - name: SPRSUN A/C PUMP
       state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(1) > 0 }}"
-    - name: Crank heater
+    - name: SPRSUN Crank heater
       state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(2) > 0 }}"
-    - name: Assistant solenoid valve
+    - name: SPRSUN Assistant solenoid valve
       state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(32) > 0 }}"
-    - name: Pump
+    - name: SPRSUN Pump
       state: "{{ states('sensor.sprsun_pc_output_symbol_3')|int|bitwise_and(64) > 0 }}"
 
 # sprsun_pc_failure_symbol_1
-    - name: Hotwater temp
+    - name: SPRSUN Hotwater temp
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(1) > 0 }}"
-    - name: Ambi temp
+    - name: SPRSUN Ambi temp
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(2) > 0 }}"
-    - name: coil temp
+    - name: SPRSUN coil temp
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(4) > 0 }}"
-    - name: Outlet temp
+    - name: SPRSUN Outlet temp
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(16) > 0 }}"
-    - name: High pressure sensor failure
+    - name: SPRSUN High pressure sensor failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(32) > 0 }}"
-    - name: Phase sequence
+    - name: SPRSUN Phase sequence
       state: "{{ states('sensor.sprsun_pc_failure_symbol_1')|int|bitwise_and(128) > 0 }}"
 # sprsun_pc_failure_symbol_2
-    - name: Water flow failure
+    - name: SPRSUN Water flow failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_2')|int|bitwise_and(1) > 0 }}"
-    - name: High protection of heating water outlet
+    - name: SPRSUN High protection of heating water outlet
       state: "{{ states('sensor.sprsun_pc_failure_symbol_2')|int|bitwise_and(4) > 0 }}"
 # sprsun_pc_failure_symbol_3
-    - name: Outlet gas temp. failure
+    - name: SPRSUN Outlet gas temp. failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_3')|int|bitwise_and(64) > 0 }}"
 # sprsun_pc_failure_symbol_4   1,2,4,8,16,32,64,128
-    - name: Water inlet temp. failure
+    - name: SPRSUN Water inlet temp. failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(1) > 0 }}"
-    - name: Exhaust temperature is too high
+    - name: SPRSUN Exhaust temperature is too high
       state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(2) > 0 }}"
-    - name: Low protection of cooling water outlet
+    - name: SPRSUN Low protection of cooling water outlet
       state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(32) > 0 }}"
-    - name: Inlet gas temp. failure
+    - name: SPRSUN Inlet gas temp. failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_4')|int|bitwise_and(64) > 0 }}"
 # sprsun_pc_failure_symbol_5
-    - name: Low pressure protection
+    - name: SPRSUN Low pressure protection
       state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(1) > 0 }}"
-    - name: High pressure protection
+    - name: SPRSUN High pressure protection
       state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(2) > 0 }}"
-    - name: Coil temperature is too high
+    - name: SPRSUN Coil temperature is too high
       state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(4) > 0 }}"
-    - name: High pressure sensor failure
+    - name: SPRSUN High pressure sensor failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(64) > 0 }}"
-    - name: Low pressure sensor failure
+    - name: SPRSUN Low pressure sensor failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_5')|int|bitwise_and(128) > 0 }}"
 # sprsun_pc_failure_symbol_6
-    - name: Sec antifreeze
+    - name: SPRSUN Sec antifreeze
       state: "{{ states('sensor.sprsun_pc_failure_symbol_6')|int|bitwise_and(16) > 0 }}"
-    - name: One antifreeze
+    - name: SPRSUN One antifreeze
       state: "{{ states('sensor.sprsun_pc_failure_symbol_6')|int|bitwise_and(32) > 0 }}"
 # sprsun_pc_failure_symbol_7
-    - name: Ambient temperature is too low
+    - name: SPRSUN Ambient temperature is too low
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(2) > 0 }}"
-    - name: frequency conversion module is faulty
+    - name: SPRSUN frequency conversion module is faulty
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(16) > 0 }}"
-    - name: 2# Dc fan failure
+    - name: SPRSUN 2# Dc fan failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(32) > 0 }}"
-    - name: 1# Dc fan failure
+    - name: SPRSUN 1# Dc fan failure
       state: "{{ states('sensor.sprsun_pc_failure_symbol_7')|int|bitwise_and(64) > 0 }}"
-
-
-utility_meter:
-  zuzycie_energii_pc_dzienne:
-    source: sensor.energia_czynna_pobrana_pc
-    name: Dzienne zużycie energii przez PC Sprsun
-    cycle: daily
-  zuzycie_energii_pc_miesieczne:
-    source: sensor.energia_czynna_pobrana_pc
-    name: Miesieczne zużycie energii przez PC Sprsun
-    cycle: monthly
-  zuzycie_energii_pc_roczne:
-    source: sensor.energia_czynna_pobrana_pc
-    name: Roczne zużycie energii przez PC Sprsun
-    cycle: yearly
-    
-  miesieczny_czas_pracy_sprezarki:
-    source: sensor.sprsun_pc_czas_pracy_sprezarki
-    name: Sprsun - miesięczny czas pracy sprężarki
-    cycle: monthly
-  roczny_czas_pracy_sprezarki:
-    source: sensor.sprsun_pc_czas_pracy_sprezarki
-    name: Sprsun - Roczny czas pracy sprężarki
-    cycle: yearly
-  miesieczna_ilosc_zalaczen_sprezarki:
-    source: sensor.sprsun_pc_ilosc_zalaczen_sprezarki
-    name: Sprsun - miesięczna ilość załączeń sprężarki
-    cycle: monthly
-  roczna_ilosc_zalaczen_sprezarki:
-    source: sensor.sprsun_pc_ilosc_zalaczen_sprezarki
-    name: Sprsun - Roczna ilość załączeń sprężarki
-    cycle: yearly
