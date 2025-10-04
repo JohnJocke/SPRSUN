@@ -576,14 +576,14 @@ modbus:
         scale: 1
         unit_of_measurement: "°C"
         
-      - name: "SPR zawór EEV1 step."
+      - name: "SPR valve EEV1 step."
         slave: 1
         address: 0x001C
         input_type: holding
         data_type: int16
         scan_interval: 30
         
-      - name: "SPR zawór EEV2 step."
+      - name: "SPR valve EEV2 step."
         slave: 1
         address: 0x001D
         input_type: holding
@@ -1642,7 +1642,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
   
-      - name: "SPR tryb pracy kompresora"
+      - name: "SPR compressor operating mode"
         slave: 1
         address: 0x0190
         input_type: holding
@@ -2021,7 +2021,7 @@ switch:
   - platform: template
     switches:
       sprsun_pc_wlaczenie_pompy_ciepla:
-        friendly_name: "Turning on the heat pump"
+        friendly_name: "SPR turn on the heat pump"
         value_template: "{{ states('sensor.spr_parameter_marker_definition') | int(default=0) | bitwise_and(1) > 0 }}"
         turn_on:
           - service: modbus.write_register
