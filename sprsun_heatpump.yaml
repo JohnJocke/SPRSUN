@@ -728,7 +728,7 @@ modbus:
         precision: 1
         unit_of_measurement: "%"
 
-      - name: SPR Suct.press
+      - name: SPR Disch.press
         slave: 1
         address: 0x002F
         input_type: holding
@@ -738,7 +738,7 @@ modbus:
         precision: 1
         unit_of_measurement: "bar"
 
-      - name: SPR Disch.press
+      - name: SPR Suct.press
         slave: 1
         address: 0x0030
         input_type: holding
