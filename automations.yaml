@@ -37,9 +37,14 @@
 - id: sprsun_pc_wybieramy_tryb_pracy_kompresora_190
   alias: SPR selecting the compressor operating mode
   trigger:
-    platform: state
+  - platform: state
     entity_id: input_select.sprsun_pc_tryb_pracy_kompresora_190
     id: select
+    to:
+    
+  - platform: state
+    entity_id: sensor.spr_p07_fan_mode
+    id: input
     to:
   condition: []
   action:
@@ -50,10 +55,10 @@
       sequence:
       - variables:
           values:
-            '0': 0 Normal
+            '0': 0 Turbo
             '1': 1 ECO
-            '2': 2 Night
-            '3': 3 Test
+            '2': 2 Sleep
+            '3': 3 HI-COP
       - service: input_select.select_option
         target:
           entity_id: input_select.sprsun_pc_tryb_pracy_kompresora_190
@@ -67,7 +72,7 @@
         data_template:
           address: 400
           slave: 1
-          hub: Sprsun PC
+          hub: SPRSUN
           value: '{{ trigger.to_state.state[0] | int(0)  }}'
 
 - id: sprsun_pc_wybieramy_tryb_pracy_p06_unit_mode_36

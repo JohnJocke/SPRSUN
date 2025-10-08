@@ -1642,7 +1642,7 @@ modbus:
         data_type: int16
         scan_interval: 30 
   
-      - name: "SPR compressor operating mode"
+      - name: "SPR P07 Fan mode"
         slave: 1
         address: 0x0190
         input_type: holding
@@ -2002,12 +2002,12 @@ input_select:
       - 4 Cooling and DHW
 
   sprsun_pc_tryb_pracy_kompresora_190:
-    name: SPR Selecting the compressor operating mode
+    name: SPR P07 Fan mode
     options:
-      - 0 Normal
+      - 0 Turbo
       - 1 ECO
-      - 2 Night
-      - 3 Test
+      - 2 Sleep
+      - 3 HI-COP
 
   sprsun_pc_g02_pump_work_0_interval_1_normal_2_demand_19e:
     name: SPR Selecting the circulation pump operating mode
