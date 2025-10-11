@@ -1970,6 +1970,76 @@ modbus:
         data_type: int16
         scan_interval: 60 
         unit_of_measurement: "Hz"
+        
+        
+        # ECO mode
+      - name: "SPR E01 Economic heat ambi.1"
+        slave: 1
+        address: 0x0169
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        
+      - name: "SPR E02 Economic heat ambi.2"
+        slave: 1
+        address: 0x016A
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        
+      - name: "SPR E03 Economic heat ambi.3"
+        slave: 1
+        address: 0x016B
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        
+      - name: "SPR E04 Economic heat ambi.4"
+        slave: 1
+        address: 0x016C
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        
+      - name: "SPR E13 Economic heat temp 1"
+        slave: 1
+        address: 0x0175
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        scale: 0.5
+        
+      - name: "SPR E14 Economic heat temp 2"
+        slave: 1
+        address: 0x0176
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        scale: 0.5
+        
+      - name: "SPR E15 Economic heat temp 3"
+        slave: 1
+        address: 0x0177
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        scale: 0.5
+        
+      - name: "SPR E16 Economic heat temp 4"
+        slave: 1
+        address: 0x0178
+        input_type: holding
+        data_type: int16
+        scan_interval: 60 
+        unit_of_measurement: "°C"
+        scale: 0.5
 
 
 input_number:
